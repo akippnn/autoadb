@@ -1,7 +1,8 @@
 import time
 import subprocess
 
-def main(arg: str) -> int:
+
+def wait(arg: str) -> int:
     try:
         if arg == 'input':
             input("Press Enter to continue...")

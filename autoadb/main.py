@@ -1,17 +1,28 @@
 import sys
 import subprocess
 import cmd
-VARIABLES: dict = {}
+
+
+def iscommand(command: str) -> bool:
+    if (command[:2] == '__' and command[-2:]):
+        return False
+    return True
+
+COMMANDS: list[str] = [command for command in dir(cmd) if iscommand(command)]
 
 
 def var(key: str, value): 
     VARIABLES[key] = value
 
+VARIABLES: dict = {}
 
-def command(cmd: str) -> int:
-    parse: list = cmd.split()
 
-    # layer 1 - check
+def process(command: str) -> int:
+    parse: list = command.split()
+
+    # layer 1 - check if the command exists in cmd
+    if command in COMMANDS:
+        getattr(cmd, command)()
 
 
     result = subprocess.run(parse, stdout = sys.stdout)
